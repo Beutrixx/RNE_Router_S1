@@ -56,7 +56,7 @@ const SignupScreen: React.FC = () => {
       />
 
        <Pressable style={styles.button} onPress={handleSignup}>
-         <Text style={styles.buttonText}>Sign up</Text>
+         <Text style={styles.buttonText}>Submit</Text>
        </Pressable>
          <Pressable style={[styles.button, styles.clearButton]} onPress={handleClear}>
             <Text style={styles.buttonText}>Clear</Text>
