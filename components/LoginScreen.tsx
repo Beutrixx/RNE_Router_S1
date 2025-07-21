@@ -4,10 +4,20 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleLogin = () => {
-    // Add your login logic here
-    console.log('Logging in with:', email, password);
+
+ const handleLogin = () => {
+    if (email && password ) {
+      setSubmitted(true);
+    } else {
+      alert('Please fill out all fields.');
+    }
+  };
+  const handleClear = () => {
+    setEmail('');
+    setPassword('');
+    setSubmitted(false);
   };
 
   return (
@@ -44,7 +54,21 @@ const LoginScreen: React.FC = () => {
        <Pressable style={styles.button2} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login with Facebook</Text>
       </Pressable>
+
+        <Pressable style={[styles.button, styles.clearButton]} onPress={handleClear}>
+            <Text style={styles.buttonText}>Clear</Text>
+          </Pressable>
+
+       {submitted && (
+          <View style={styles.output}>
+            <Text style={styles.outputTitle}>Submitted Information:</Text>
+            <Text>Email: {email}</Text>
+            <Text>Password: {password}</Text>
     </View>
+       )}
+      
+     </View>
+
   );
 };
 
@@ -86,6 +110,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
   },
+   clearButton: {
+    backgroundColor: '#ff5c5c', 
+    marginTop: 15,
+  },
   orContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -100,5 +128,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
     fontWeight: '600',
     color: '#999',
-  }
+  },
+
+   output: {
+    marginTop: 20,
+    backgroundColor: '#f1f1f1cf',
+    padding: 15,
+    borderRadius: 8,
+  },
+  outputTitle: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
 });

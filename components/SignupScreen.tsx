@@ -7,14 +7,21 @@ const SignupScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSignup = () => {
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-    // Add your signup logic here
-    console.log('Signing up with:', email, password);
+   const handleSignup = () => {
+     if (name && email  && number  && password ) {
+       setSubmitted(true);
+     } else {
+       alert('Please fill out all fields.');
+     }
+   };
+  const handleClear = () => {
+    setName('');
+    setEmail('');
+    setNumber('');
+    setPassword('');
+    setSubmitted(false);
   };
 
   return (
@@ -48,11 +55,21 @@ const SignupScreen: React.FC = () => {
         secureTextEntry
       />
 
-      
+       <Pressable style={styles.button} onPress={handleSignup}>
+         <Text style={styles.buttonText}>Sign up</Text>
+       </Pressable>
+         <Pressable style={[styles.button, styles.clearButton]} onPress={handleClear}>
+            <Text style={styles.buttonText}>Clear</Text>
+          </Pressable>
 
-      <Pressable style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </Pressable>
+        {submitted && (
+          <View style={styles.output}>
+            <Text style={styles.outputTitle}>Submitted Information:</Text>
+            <Text>Email: {email}</Text>
+            <Text>Password: {password}</Text>
+      
+    </View>
+        )}
     </View>
   );
 };
@@ -85,9 +102,23 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 8,
   },
+  clearButton: {
+    marginTop: 20,
+    backgroundColor: '#ff5c5c',
+  },
   buttonText: {
     color: '#fff',
     textAlign: 'center',
     fontSize: 16,
+  },
+   output: {
+    backgroundColor: '#baa2a2ff',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
+  },
+  outputTitle: {
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
 });
